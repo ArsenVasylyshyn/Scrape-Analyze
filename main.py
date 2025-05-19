@@ -4,14 +4,14 @@ from src.export import save_to_csv
 import time    
 
 if __name__ == "__main__":
-    LIMIT_ENABLED = False  # 🔁 Увімкни False, щоб проходити всі вакансії
-    LIMIT = 40             # 🔢 Скільки обробляти, якщо увімкнено ліміт
+    LIMIT_ENABLED = False  # 🔁 Enable False to process all vacancies
+    LIMIT = 40             # 🔢 How many to process, if enabled limit
 
-    init_db()
+    init_db() # Initialize the database
 
     html = get_all_vacancies_html_selenium(limit=LIMIT if LIMIT_ENABLED else float('inf'))
     results = parse_vacancies_from_html(html)
-    print(f"🔗 Загалом знайдено вакансій після підвантаження: {len(results)}")
+    print(f"🔗 Total found vacancies after loading: {len(results)}") 
 
     all_data = []
     for i, (title, company, link) in enumerate(results):
@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
         all_data.append((title, company, link, keywords))
 
-        print("💾 Збережено у базу")
+        print("💾 Saved to database")    
         print("-" * 50)
         time.sleep(1)
 
